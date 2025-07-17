@@ -1,66 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Order Processing App (Transaction + Job + Bootstrap UI)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern Laravel 10-based Order Processing application with transactional order creation and background job processing. This project demonstrates the use of database transactions, asynchronous job queues, and a responsive Bootstrap 5 UI for placing orders with multiple products.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📁 Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Create orders with multiple products
+- Store orders and items in one database transaction
+- Rollback on failure to ensure data integrity
+- Background job processing using Laravel queues
+- Bootstrap 5-based responsive order form UI
+- Add/Remove product rows dynamically
+- Validation and error handling
+- Clean folder structure following Laravel standards
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🖼️ Screenshot
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+> *(Add your screenshot here using drag & drop in GitHub or markdown link)*  
+> Example:  
+> `![Order Form Screenshot](screenshot.png)`
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Tech Stack
 
-## Laravel Sponsors
+- Laravel 10
+- MySQL
+- Bootstrap 5
+- Laravel Queues (Database driver)
+- PHP 8+
+- Composer
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+---
 
-### Premium Partners
+## 🗂️ Folder Structure
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Payninja-task/
+├── app/
+│ ├── Http/Controllers/OrderController.php
+│ ├── Jobs/ProcessOrderJob.php
+│ └── Models/Order.php, OrderItem.php
+├── resources/views/order/create.blade.php
+├── routes/web.php
+├── database/migrations/
+│ ├── create_orders_table.php
+│ └── create_order_items_table.php
+├── public/
+├── .env
+├── composer.json
+└── README.md
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## ⚙️ How to Run This Project
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 🖥️ Requirements
 
-## Security Vulnerabilities
+- PHP 8.0 or higher
+- Composer
+- MySQL
+- Laravel CLI
+- Node.js (optional, for frontend assets)
+- Queue worker setup (e.g., terminal or supervisor)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+### 🔧 Setup Instructions
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. **Clone the Repository**
+git clone https://github.com/Bhaskar1308/Payninja-task.git
+cd Payninja-task
+Install Dependencies
+
+
+composer install
+Create .env File
+---
+
+
+cp .env.example .env
+php artisan key:generate
+Configure Database in .env
+---
+
+env
+DB_DATABASE=your_db_name
+DB_USERNAME=root
+DB_PASSWORD=
+QUEUE_CONNECTION=database
+---
+
+Run Migrations
+php artisan migrate
+---
+
+Start Laravel Development Server
+php artisan serve
+---
+
+Open in browser:
+http://127.0.0.1:8000/order/create
+---
+
+Start the Queue Worker
+php artisan queue:work
+---
+
+ MySQL Table Structures
+orders Table
+--
+CREATE TABLE `orders` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `customer_name` VARCHAR(255) NOT NULL,
+  `total_amount` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  `created_at` TIMESTAMP NULL,
+  `updated_at` TIMESTAMP NULL,
+  PRIMARY KEY (`id`)
+);
+
+order_items Table
+--
+CREATE TABLE `order_items` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `order_id` BIGINT UNSIGNED NOT NULL,
+  `product_name` VARCHAR(255) NOT NULL,
+  `quantity` INT NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
+  `created_at` TIMESTAMP NULL,
+  `updated_at` TIMESTAMP NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE
+);
